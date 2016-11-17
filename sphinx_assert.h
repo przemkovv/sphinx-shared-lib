@@ -92,4 +92,9 @@ public:
                                     (fmt::format(__VA_ARGS__)));               \
   }
 
-#endif
+#else
+
+#define SPHINX_ASSERT(EXPRESSION, ...)  { aaa }
+#define THROWASSERT_LOGGER(MESSAGE) {}
+
+#endif // SPHINX_NDEBUG
