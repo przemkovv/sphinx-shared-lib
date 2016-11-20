@@ -33,21 +33,6 @@ enum class ExitCode
 };
 
 
-/// @brief Auxiliary function to create a shared unique ptr.
-template <class T, class... Args>
-std::shared_ptr<std::unique_ptr<T>> make_shared_unique(Args &&... args)
-{
-  return std::make_shared<std::unique_ptr<T>>(
-      std::make_unique<T>(std::forward<Args>(args)...));
-}
-/// @brief Auxiliary function to create a shared unique ptr.
-template <class T, class... Args>
-std::shared_ptr<std::unique_ptr<T>>
-make_shared_unique_from_unique(std::unique_ptr<T> ptr)
-{
-  return std::make_shared<std::unique_ptr<T>>(ptr);
-}
-
 template <typename Task1, typename Task2>
 auto while_do(const Task1 &task_while, const Task2 &task_do)
 {
