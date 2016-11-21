@@ -5,9 +5,33 @@
 
 #include <boost/program_options.hpp>
 
+#include <experimental/optional>
 #include <future>
 #include <iostream>
 #include <string>
+
+namespace Sphinx::Utils {
+
+using std::experimental::optional;
+using std::experimental::nullopt;
+
+template <class T>
+struct is_optional : std::false_type {
+};
+
+template <class T>
+struct is_optional<optional<T>> : std::true_type {
+};
+template <class T>
+struct remove_optional {
+  using type = T;
+};
+
+template <class T>
+struct remove_optional<optional<T>> {
+  using type = T;
+};
+} // namespace Sphinx::Utils
 
 namespace Sphinx {
 
@@ -32,7 +56,6 @@ enum class ExitCode
   CONFIG = 78       /// configuration error
 };
 
-
 template <typename Task1, typename Task2>
 auto while_do(const Task1 &task_while, const Task2 &task_do)
 {
@@ -51,7 +74,8 @@ auto while_do(const Task1 &task_while, const Task2 &task_do)
 
 std::string escape_control_characters(const std::string &input);
 
-template <typename Task> struct on_scope_exit {
+template <typename Task>
+struct on_scope_exit {
   on_scope_exit(const Task &f) : f_(f) {}
   on_scope_exit<Task> &operator=(const on_scope_exit<Task> &) = delete;
   on_scope_exit(const on_scope_exit<Task> &) = delete;
@@ -61,7 +85,8 @@ template <typename Task> struct on_scope_exit {
   const Task &f_;
 };
 
-template <typename Task> on_scope_exit<Task> do_on_scope_exit(const Task &f)
+template <typename Task>
+on_scope_exit<Task> do_on_scope_exit(const Task &f)
 {
   return on_scope_exit<Task>(f);
 }
