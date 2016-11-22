@@ -4,7 +4,8 @@
 #include <type_traits>
 
 template <typename T>
-struct assert_false : std::false_type { };
+struct assert_false : std::false_type {
+};
 
 #ifndef SPHINX_NDEBUG
 
@@ -12,9 +13,6 @@ struct assert_false : std::false_type { };
 #include <exception>
 #include <fmt/format.h>
 #include <string>
-
-
-
 
 #define THROWASSERT_LOGGER(MESSAGE)                                            \
   {                                                                            \
@@ -44,7 +42,11 @@ public:
                             const char *file,
                             int line,
                             const std::string &message)
-    : expression_(expression), file_(file), line_(line), message_(message)
+    : expression_(expression),
+      file_(file),
+      line_(line),
+      message_(message),
+      report()
   {
     fmt::MemoryWriter outputStream;
 
@@ -66,6 +68,10 @@ public:
 
     LogError();
   }
+
+  AssertionFailureException(const AssertionFailureException &) = delete;
+  AssertionFailureException &
+  operator=(const AssertionFailureException &) = delete;
 
   /// The assertion message
   virtual const char *what() const noexcept(true) { return report.c_str(); }
@@ -94,7 +100,11 @@ public:
 
 #else
 
-#define SPHINX_ASSERT(EXPRESSION, ...)  { aaa }
-#define THROWASSERT_LOGGER(MESSAGE) {}
+#define SPHINX_ASSERT(EXPRESSION, ...)                                         \
+  {                                                                            \
+  }
+#define THROWASSERT_LOGGER(MESSAGE)                                            \
+  {                                                                            \
+  }
 
 #endif // SPHINX_NDEBUG
