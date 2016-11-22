@@ -69,9 +69,9 @@ public:
     LogError();
   }
 
-  AssertionFailureException(const AssertionFailureException &) = delete;
+  AssertionFailureException(const AssertionFailureException &) = default;
   AssertionFailureException &
-  operator=(const AssertionFailureException &) = delete;
+  operator=(const AssertionFailureException &) = default;
 
   /// The assertion message
   virtual const char *what() const noexcept(true) { return report.c_str(); }
