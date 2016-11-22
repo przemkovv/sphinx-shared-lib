@@ -1,11 +1,9 @@
 
 #pragma once
 
-#include <spdlog/spdlog.h>
-#include <spdlog/fmt/ostr.h>
-
-#include <memory>
-#include <string>
+#include <memory>          // for shared_ptr, __shared_ptr_access
+#include <spdlog/spdlog.h> // for logger, get, stdout_color_st, spdlog_ex
+#include <string>          // for string
 
 namespace Sphinx {
 
@@ -30,7 +28,7 @@ inline auto make_logger(const std::string &name,
     return logger;
   }
   catch (spdlog::spdlog_ex &) {
-    auto logger =  spdlog::get(name);
+    auto logger = spdlog::get(name);
     logger->set_level(level);
     return logger;
   }
