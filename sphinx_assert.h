@@ -7,6 +7,11 @@ template <typename T>
 struct assert_false : std::false_type {
 };
 
+template<typename T>
+void not_implemented_yet()  {
+  static_assert(assert_false<T>::value, "Not implemented yet");
+}
+
 #ifndef SPHINX_NDEBUG
 
 #include "Logger.h"
