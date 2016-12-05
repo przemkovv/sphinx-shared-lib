@@ -1,12 +1,12 @@
 
 #pragma once
 
-#include <chrono>                // for milliseconds
-#include <experimental/optional> // for optional, nullopt
-#include <future>                // for future_status, async, future_status...
-#include <iostream>              // for ostream
-#include <string>                // for string
-#include <type_traits>           // for false_type, true_type
+#include <chrono>      // for milliseconds
+#include <future>      // for future_status, async, future_status...
+#include <iostream>    // for ostream
+#include <optional>    // for optional, nullopt
+#include <string>      // for string
+#include <type_traits> // for false_type, true_type
 
 namespace boost::program_options {
 class variable_value;
@@ -14,15 +14,12 @@ class variable_value;
 
 namespace Sphinx::Utils {
 
-using std::experimental::optional;
-using std::experimental::nullopt;
-
 template <class T>
 struct is_optional : std::false_type {
 };
 
 template <class T>
-struct is_optional<optional<T>> : std::true_type {
+struct is_optional<std::optional<T>> : std::true_type {
 };
 template <class T>
 struct remove_optional {
@@ -30,7 +27,7 @@ struct remove_optional {
 };
 
 template <class T>
-struct remove_optional<optional<T>> {
+struct remove_optional<std::optional<T>> {
   using type = T;
 };
 } // namespace Sphinx::Utils

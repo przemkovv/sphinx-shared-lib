@@ -2,14 +2,13 @@
 
 #include <bits/move.h>
 #include <bits/stl_iterator_base_types.h>
-#include <experimental/type_traits>
+#include <type_traits>
 #include <iosfwd>
 
 namespace Sphinx::Utils {
 
 /// Output iterator that inserts a delimiter between elements.
-template <typename _DelimT,
-          typename ostream_type >
+template <typename _DelimT, typename ostream_type>
 class joiner_iterator {
 public:
   typedef std::output_iterator_tag iterator_category;
