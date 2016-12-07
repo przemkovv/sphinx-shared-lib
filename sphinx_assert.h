@@ -16,7 +16,7 @@ void static_not_implemented_yet()  {
 
 #ifndef SPHINX_NDEBUG
 
-#include "Logger.h"
+#include "logger.h"
 #include <exception>
 #include <fmt/format.h>
 #include <string>
