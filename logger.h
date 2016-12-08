@@ -9,6 +9,7 @@ namespace Sphinx {
 
 typedef std::shared_ptr<spdlog::logger> Logger;
 
+
 inline auto make_logger(const std::string &name)
 {
   try {
@@ -33,5 +34,7 @@ inline auto make_logger(const std::string &name,
     return logger;
   }
 }
+
+static Logger global_logger = make_logger("Sphinx::GLOBAL");
 
 } // namespace Sphinx
