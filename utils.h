@@ -1,11 +1,12 @@
 
 #pragma once
 
-#include <chrono>      // for milliseconds
-#include <future>      // for future_status, async, future_status...
-#include <iostream>    // for ostream
-#include <optional>    // for optional, nullopt
-#include <string>      // for string
+#include <chrono>   // for milliseconds
+#include <future>   // for future_status, async, future_status...
+#include <iostream> // for ostream
+#include <optional> // for optional, nullopt
+#include <string>   // for string
+#include <tuple>
 #include <type_traits> // for false_type, true_type
 
 namespace boost::program_options {
@@ -30,6 +31,20 @@ template <class T>
 struct remove_optional<std::optional<T>> {
   using type = T;
 };
+
+template <size_t I = 0, typename Func, typename... Ts>
+typename std::enable_if<I == sizeof...(Ts)>::type
+for_each_in_tuple(std::tuple<Ts...> &, Func)
+{
+}
+
+template <size_t I = 0, typename Func, typename... Ts>
+    typename std::enable_if <
+    I<sizeof...(Ts)>::type for_each_in_tuple(std::tuple<Ts...> &tpl, Func func)
+{
+  func(std::get<I>(tpl));
+  for_each_in_tuple<I + 1>(tpl, func);
+}
 } // namespace Sphinx::Utils
 
 namespace Sphinx {
