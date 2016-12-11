@@ -32,13 +32,13 @@ struct remove_optional<std::optional<T>> {
   using type = T;
 };
 
-template <size_t I = 0, typename Func, typename... Ts>
+template <auto I = 0, typename Func, typename... Ts>
 typename std::enable_if<I == sizeof...(Ts)>::type
 for_each_in_tuple(std::tuple<Ts...> &, Func)
 {
 }
 
-template <size_t I = 0, typename Func, typename... Ts>
+template <auto I = 0, typename Func, typename... Ts>
     typename std::enable_if <
     I<sizeof...(Ts)>::type for_each_in_tuple(std::tuple<Ts...> &tpl, Func func)
 {
